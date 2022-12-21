@@ -1,24 +1,19 @@
 {
   "Todos": [
     {
-      "id": 2,
-      "text": "TodoList 만들기",
-      "done": false
-    },
-    {
-      "text": "서버 연결하기",
-      "done": false,
-      "id": 7
-    },
-    {
-      "text": "운동하기",
-      "done": false,
-      "id": 9
-    },
-    {
-      "text": "",
+      "text": "국어 공부하기",
       "done": false,
       "id": 10
+    },
+    {
+      "text": "12시에 자기",
+      "done": false,
+      "id": 11
+    },
+    {
+      "text": "입력입력",
+      "done": false,
+      "id": 12
     }
   ]
 }

@@ -3,6 +3,49 @@ import styled from "styled-components";
 import { MdAdd } from 'react-icons/md';
 import { useState } from "react";
 
+
+function TodoCreate() {
+  const [value, setValue] = useState('');
+
+  const onChange = (e) => {
+    setValue(e.target.value);
+  }
+
+  const onSubmit = () => {
+      console.log(value)
+      fetch('http://localhost:3001/Todos',{
+      method: "POST",
+      headers: {"Content-Type" : "application/json"},
+      body: JSON.stringify({
+        text: value,
+        done : false
+      })
+    })
+    .catch((error)=>{
+      console.error('Error',error)
+    })
+  }
+  
+   return (
+     <InsertFormPositioner>
+       <InsertForm onSubmit={onSubmit}>
+         <TextInput
+           type="text"
+           name="text"
+           placeholder="입력하세요"
+           value={value}
+           onChange={onChange}
+           />
+         <AddButton type="submit">
+          <MdAdd />
+         </AddButton>
+       </InsertForm>
+     </InsertFormPositioner>
+   );
+}
+
+export default TodoCreate;
+
 const AddButton = styled.button`
   background: #38d9a9;
   &:hover {
@@ -45,47 +88,3 @@ const TextInput = styled.input`
   outline: none;
   font-size: 18px;
 `;
-
-function TodoCreate() {
-  const [value, setValue] = useState('');
-
-  const onChange = (e) => {
-    setValue(e.target.value);
-  }
-
-  const onSubmit = () => {
-      console.log(value)
-      fetch('http://localhost:3001/Todos',{
-      method: "POST",
-      headers: {"Content-Type" : "application/json"},
-      body: JSON.stringify({
-        text: value,
-        done : false
-      })
-    })
-    .catch((error)=>{
-      console.error('Error',error)
-    })
-  }
-
-
-  
-   return (
-     <InsertFormPositioner>
-       <InsertForm onSubmit={onSubmit}>
-         <TextInput
-           type="text"
-           name="text"
-           placeholder="입력하세요"
-           value={value}
-           onChange={onChange}
-           />
-         <AddButton type="submit">
-          <MdAdd />
-         </AddButton>
-       </InsertForm>
-     </InsertFormPositioner>
-   );
-}
-
-export default TodoCreate;

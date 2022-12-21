@@ -1,97 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { MdDone, MdDelete, MdCreate } from 'react-icons/md';
+import { MdDone, MdDelete, MdCreate, MdClose } from 'react-icons/md';
 import { useState } from "react";
 
-const Remove = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #dee2e6;
-  font-size: 24px;
-  cursor: pointer;
-  &:hover {
-    color: #ff6b6b;
-  }
-  display: none;
-`;
-
-const Edit = styled.div`
- display: flex;
-  align-items: center;
-  justify-content: center;
-`
-const EditInput = styled.div`
-  padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #dee2e6;
-  outline: none;
-  font-size: 18px;
-  display: none;
-`
-const EditBotton = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #dee2e6;
-  overflow: scroll;
-  font-size: 24px;
-  cursor: pointer;
-  &:hover {
-    color: #ff6b6b;
-  }
-  display: none;
-
-`;
-
-const TodoItemBlock = styled.div`
-  display: flex;
-  align-items: center;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  &:hover {
-    ${EditInput} {
-      display: initial;
-    }
-    ${EditBotton} {
-      display: initial;
-    }
-    ${Remove} {
-      display: initial;
-    }
-  }
-
-`;
-
-const CheckCircle = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  border: 1px solid #ced4da;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20px;
-  cursor: pointer;
-  ${props =>
-    props.done &&
-    css`
-      border: 1px solid #38d9a9;
-      color: #38d9a9;
-    `}
-`;
-
-const Text = styled.div`
-  flex: 1;
-  font-size: 21px;
-  color: #495057;
-  ${props =>
-    props.done &&
-    css`
-      color: #ced4da;
-    `}
-`;
 
 function TodoItem({todo}) {
     const {id, text, done} = todo;
@@ -151,19 +62,116 @@ function TodoItem({todo}) {
             })
         }
     }
+
   return (
     <TodoItemBlock>
+      <Contents>
       <CheckCircle done={done} onClick={isChecked}>{done && <MdDone />}</CheckCircle>
-      <Text done={done}>{text}</Text>
-      <Edit> {
-        edit ? <EditInput as = 'input' value={value} onChange={editInput} onKeyDown={enter}/>
-        : <EditBotton> <MdCreate className = "edit" onClick={editHandle}/> </EditBotton>}
-      </Edit>
-      <Remove onClick={del}>
-        <MdDelete />
-      </Remove>
+      {edit === false ? ( <Text done={done}>{text}</Text> ): (<EditInput as = 'input' value={value} onChange={editInput} onKeyDown={enter}/>
+      )}
+      </Contents>
+      <EditDeleteButton>
+        <div className='edit'> {
+          edit ? <div className="cencel" onClick={() => setEdit(false)}>
+         <MdClose />
+        </div>
+          : <div className = "edit" onClick={editHandle}> <MdCreate /> </div>}
+        </div>
+        <Remove onClick={del}>
+          <MdDelete />
+        </Remove>
+      </EditDeleteButton>
     </TodoItemBlock>
   );
 }
 
 export default TodoItem;
+const Contents =styled.div`
+display: flex;
+`
+const Remove = styled.div`
+  display: flex;
+  color: #D3D3D3;
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    color: #ff6b6b;
+  }
+`;
+
+const EditDeleteButton = styled.div`
+  display: flex;
+  .cencel{
+  border: none;
+  color: #D3D3D3;
+  background-color: none;
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    color: #ff6b6b;
+  }
+  }
+  .edit {
+  border: none;
+  color: #D3D3D3;
+  background-color: none;
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    color: #ff6b6b;
+  }
+  }
+
+
+`
+const EditInput = styled.div`
+  border-bottom: 1px solid #dee2e6;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline: none;
+  font-size: 21px;
+  button{
+    
+  }
+`
+
+
+const TodoItemBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  
+
+`;
+
+const CheckCircle = styled.div`
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #ced4da;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  cursor: pointer;
+  ${props =>
+    props.done &&
+    css`
+      border: 1px solid #38d9a9;
+      color: #38d9a9;
+    `}
+`;
+
+const Text = styled.div`
+  flex: 1;
+  font-size: 21px;
+  color: #495057;
+  ${props =>
+    props.done &&
+    css`
+      color: #ced4da;
+    `}
+`;
