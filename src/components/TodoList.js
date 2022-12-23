@@ -8,7 +8,7 @@ const TodoListBlock = styled.div`
   padding-bottom: 48px;
   overflow-y: auto;
   .tasks-left {
-    color: #20c997;
+    color: #75439C;
     font-size: 18px;
     margin: 15px 0;
     font-weight: bold;
@@ -31,4 +31,4 @@ const TodoList = ({todos}) => {
       );
 }
 
-export default TodoList;
+export default React.memo(TodoList);

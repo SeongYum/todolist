@@ -40,4 +40,4 @@ function TodoHead() {
   );
 }
 
-export default TodoHead;
+export default React.memo(TodoHead);

@@ -13,6 +13,7 @@ function TodoCreate() {
 
   const onSubmit = () => {
       console.log(value)
+      if(value !== ''){
       fetch('http://localhost:3001/Todos',{
       method: "POST",
       headers: {"Content-Type" : "application/json"},
@@ -24,7 +25,7 @@ function TodoCreate() {
     .catch((error)=>{
       console.error('Error',error)
     })
-  }
+  }else{window.alert("할 일을 입력하세요!");}}
   
    return (
      <InsertFormPositioner>
@@ -44,15 +45,15 @@ function TodoCreate() {
    );
 }
 
-export default TodoCreate;
+export default React.memo(TodoCreate);
 
 const AddButton = styled.button`
-  background: #38d9a9;
+  background: #75439C;
   &:hover {
-    background: #63e6be;
+    background: #592D7C;
   }
   &:active {
-    background: #20c997;
+    background: #481A6B;
   }
 
   z-index: 1;

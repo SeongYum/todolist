@@ -71,12 +71,12 @@ function TodoItem({todo}) {
       )}
       </Contents>
       <EditDeleteButton>
-        <div className='edit'> {
+        <Edit> {
           edit ? <div className="cencel" onClick={() => setEdit(false)}>
          <MdClose />
         </div>
           : <div className = "edit" onClick={editHandle}> <MdCreate /> </div>}
-        </div>
+        </Edit>
         <Remove onClick={del}>
           <MdDelete />
         </Remove>
@@ -85,23 +85,29 @@ function TodoItem({todo}) {
   );
 }
 
-export default TodoItem;
+export default React.memo(TodoItem);
+
+
 const Contents =styled.div`
 display: flex;
+width: 100%;
+
+`
+const EditDeleteButton = styled.div`
+  display: flex;
 `
 const Remove = styled.div`
-  display: flex;
   color: #D3D3D3;
   font-size: 24px;
   cursor: pointer;
   &:hover {
     color: #ff6b6b;
   }
+  display: none;
 `;
-
-const EditDeleteButton = styled.div`
-  display: flex;
-  .cencel{
+const Edit =styled.div`
+ display: none;
+.cencel{
   border: none;
   color: #D3D3D3;
   background-color: none;
@@ -121,8 +127,6 @@ const EditDeleteButton = styled.div`
     color: #ff6b6b;
   }
   }
-
-
 `
 const EditInput = styled.div`
   border-bottom: 1px solid #dee2e6;
@@ -131,25 +135,13 @@ const EditInput = styled.div`
   border-left: none;
   outline: none;
   font-size: 21px;
-  button{
-    
-  }
+  width: 300px;
 `
 
 
-const TodoItemBlock = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  
-
-`;
-
 const CheckCircle = styled.div`
-  width: 28px;
-  height: 28px;
+  width: 27px;
+  height: 27px;
   border-radius: 50%;
   border: 1px solid #ced4da;
   display: flex;
@@ -160,8 +152,8 @@ const CheckCircle = styled.div`
   ${props =>
     props.done &&
     css`
-      border: 1px solid #38d9a9;
-      color: #38d9a9;
+      border: 1px solid #75439C;
+      color: #75439C;
     `}
 `;
 
@@ -169,9 +161,26 @@ const Text = styled.div`
   flex: 1;
   font-size: 21px;
   color: #495057;
+
   ${props =>
     props.done &&
     css`
       color: #ced4da;
+      text-decoration: line-through;
     `}
+`;
+const TodoItemBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  &:hover {
+    ${Edit} {
+      display: initial;
+    }
+    ${Remove} {
+      display: initial;
+    }
+  }
 `;
